@@ -9,12 +9,18 @@
   <div id="app"></div>
   <script src="./js/vue.js"></script>
   <script>
+    /*
+      构建根组件
+      顶层组件，后面根据不同的应用需求创建不同功能的可复用的功能组件，进行组合，放到根组件中，组成完整的应用
+      createElement
+    */
       let app = new Vue({
         template: `
-          <div>kaikeba</div>
+          <div>根组件</div>
         `
       })
-      app.$mount('#app')
+      // appendchild
+      app.$mount("#app")
   </script>
 </body>
 </html>
