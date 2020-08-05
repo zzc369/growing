@@ -7,18 +7,23 @@
 </head>
 <body>
   <div id="app">
-    <h1>{{title}}</h1>
+    <!-- 在解析完成之前，会出现 {{title}} 的内容，即"{{title}}" -->
+    <h1>你好，{{title}}</h1>
     <p v-text="title"></p>
-    <!-- 结合上面两个 -->
+    <!-- 结合上面两个，不渲染时等同于display:none -->
     <p v-cloak>nihao,{{title}}</p>
+    <hr>
+    <!-- 会将content中的内容当做html解析,v-pre则不会解析{{}} -->
+    <div v-html="content"></div>
   </div>
   <script src="js/vue.js"></script>
   <script>
-
+    // 指令的值必须是表达式模式，不支持{{}}语法，支持"",
     let app =new Vue({
       el:'#app',
       data: {
-        title: 'kaikeba'
+        title: 'kaikeba',
+        content: "<h1>11111</h1>"
       }
     })
   </script>
