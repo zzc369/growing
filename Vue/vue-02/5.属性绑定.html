@@ -8,7 +8,17 @@
 <body>
   <div id="app">
     <h1>{{title}}</h1>
-    
+    <!-- 对id这个属性使用v-bind， :后面的内容，称为指定的元素，给元素添加一个id的属性（attribute），其值为表达式的结果 -->
+    <!-- 简写  :id -->
+    <div v-bind:id="myId"></div>
+    <!--  :后面的属性接收的是一个表达式的值 -->
+    <div style="width: 128px;"></div>
+    <div :style="style1"></div>
+
+    <div class="box1 box2"></div>
+    <div :class="'box1 box2'"></div>
+    <div :class="['box1 box2']"></div>
+    <div :class="{'box1': true}"></div>
   </div>
   <script src="js/vue.js"></script>
   <script>
@@ -16,7 +26,10 @@
     let app =new Vue({
       el:'#app',
       data: {
-        myId: 'kaikeba'
+        myId: 'kaikeba',
+        style1: {
+          width: '128px',
+        }
       }
     })
   </script>

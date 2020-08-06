@@ -16,3 +16,7 @@
   - v-if  渲染和不渲染标签,不常 变化可使用
   - v-show 为display none,适合经常切换
   - 标签嵌套,浏览器会处理非法嵌套,标签嵌套要符合规范
+
+  - attribute和property
+  写在标签上的属性，attribute,input.setAttribute设置的也是attr
+  dom的属性叫prop如input.value
