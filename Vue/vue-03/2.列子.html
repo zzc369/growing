@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      {{title}}
+      <hr />
+      First name: <input type="text" v-focus="isFocus" />
+      <button>aaaa</button>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+
+      // let input = document.createElement('input')
+      // input.focus()
+      // document.body.appendChild(input)
+      Vue.directive("focus", {
+        bind(el) {
+          // 该生命周期执行完成的时候，虽然可以得到所在的dom节点对象，但是并不代表该节点已经渲染到页面上
+          // el.focus();
+        },
+        inserted(el,binding){
+          el.focus()
+        }
+      });
+      new Vue({
+        el: "#app",
+        data: {
+          title: "指令",
+          isFocus: true
+        },
+      });
+    </script>
+  </body>
+</html>

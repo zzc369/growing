@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+      {{title}}
+      <hr>
+      <div v-test></div>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    /*
+      全局指令
+      在整个应用中都可以使用
+      名称，
+          在注注册的时候不需要加上v-的前缀
+          使用的使用需要加v-前缀
+      指令配置,
+          生命周期，钩子函数，一系列的钩子函数，不用的函数会在指令不同的阶段执行，从而影响使用该指令的元素
+    */
+
+    Vue.directive('test',{
+      bind(el,binding){
+        // el 该指令所在的元素
+        // binding 指令配置的细节，参数，修饰符，值等信息
+        console.log('bind',el,binding);
+      },
+      inserted(){
+        console.log('inserted');
+      },
+      updated() {
+        console.log('updated');
+      },
+      componentUpdated(){
+        console.log('componentUpdated');
+      },
+      unbind(){
+        console.log('unbind');
+      }
+    })
+    new Vue({
+      el: '#app',
+      data: {
+        title: '指令'
+      }
+    })
+    
+  </script>
+</body>
+</html>
