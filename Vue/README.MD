@@ -20,3 +20,7 @@
   - attribute和property
   写在标签上的属性，attribute,input.setAttribute设置的也是attr
   dom的属性叫prop如input.value
+- 03
+  - clientX clientY 点击位置距离当前body的可视区域的x，y坐标
+  - offsetX offsetY 相对于带有定位的父盒子的x，y坐标
+  - screenX screenY 点击位置相对于电脑屏幕的xy坐标

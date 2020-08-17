@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        position: absolute;
+        left: 100px;
+        top: 100px;
+        width: 100px;
+        height: 100px;
+        background: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <button>拖拽 - {{}}</button>
+      <div class="box" v-drag="isCanDrag"></div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      Vue.directive("drag", {
+        bind(el, { value: isCanDrag }) {
+          let x = 0;
+          let y = 0;
+          let isDown = false;
+          el._isCanDrag = isCanDrag;
+          el.addEventListener("mousedown", function (e) {
+            if (!isCanDrag) return;
+            x = e.clientX - this.offsetLeft;
+            y = e.clientY - this.offsetTop;
+            isDown = true;
+
+            e.preventDefault();
+          });
+
+          el.addEventListener("mousemove", function (e) {
+            if (isDown && isCanDrag) {
+              this.style.left = e.clientX - x + "px";
+              this.style.top = e.clientY - y + "px";
+            }
+          });
+          el.addEventListener("mouseup", function (e) {
+            isDown = false;
+          });
+        },
+        
+      });
+      new Vue({
+        el: "#app",
+        data: {
+          title: "指令",
+          isCanDrag: true,
+        },
+      });
+    </script>
+  </body>
+</html>

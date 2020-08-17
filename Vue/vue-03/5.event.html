@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div v-on:click="fn">111111</div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+     /*
+        在vue中，事件通过v-on进行绑定，缩写@
+     */
+      new Vue({
+        el: "#app",
+        data: {
+          title: "指令",
+          isCanDrag: true,
+        },
+        methods: {
+          fn() {
+            console.log('111');
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
