@@ -9,6 +9,8 @@
 
 - 01
   - 在html中，单标签组件重复会被省略????。。。。例子见01/el/html
+  - : == v-bind  
+  - @ == v-on
 
 - 02 
   - defineProperty 新增不会触发？存在的一些问题
@@ -24,3 +26,9 @@
   - clientX clientY 点击位置距离当前body的可视区域的x，y坐标
   - offsetX offsetY 相对于带有定位的父盒子的x，y坐标
   - screenX screenY 点击位置相对于电脑屏幕的xy坐标
+- 04 
+  - 为什么组件的data是函数，而app的vue实例中的data却是一个对象？
+  - 组件中属性的命名不能以_开头
+  - .native 修饰符原生事件
+  - v-modal 原理  与  .sync 
+  - 

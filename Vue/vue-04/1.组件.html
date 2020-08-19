@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+      
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    /*template
+      可复用的单元模块
+      有且只有一个根节点，
+      不能挂载到html，body上
+      data 
+          - 内部私有数据（状态）
+          - 结构，样式，行为，状态
+          - 状态不是一成不变的，根据特殊数据的变化，来改变当前组件的结构，样式和行为
+          - 可复用组件的data与根组件的data有不同之处
+            - 根组件，对象
+            - 可复用组件，函数，返回一个对象，返回的对象才是该组件的状态
+    */
+    Vue.component('kkb',{
+      template: `
+        <div>zujian</div>
+      `,
+      data() {
+        return {
+
+        }
+      },
+      props: [],
+      model: {
+        prop: '',
+        event: ''
+      },
+      methods: {
+        fn() {
+
+        }
+      },
+    })
+    new Vue({
+      el: '#app',
+      data: {
+        
+      }
+    })
+    
+  </script>
+</body>
+</html>
