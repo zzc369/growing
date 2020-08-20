@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+      <kkb></kkb>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    Vue.component('kkb',{
+      template: `
+        <div>zujian</div>
+      `,
+      data() {
+        return {
+
+        }
+      },
+    });
+
+    const Dialog = {
+      prop: ['title','content'],
+      template: `
+        <div class="dialog">
+          <i class="dialog_close_btn"></i>
+          <div class="dialog_header">
+            <span class="dialog_title">{{title}}</span>
+          </div> 
+          <div class="dialog_content">
+            <slot></slot>
+          </div>
+        </div>
+      
+      `
+    }
+    // 原生标签中也有一个dialog标签，不能重名
+    new Vue({
+      el: '#app',
+      component: {
+        'v-dialog':Dialog,
+      }
+    })
+    
+  </script>
+</body>
+</html>
