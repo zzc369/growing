@@ -44,3 +44,9 @@
     - create ，在实例创建完成之后立即被调用，该阶段完成了对data数据的observer，可以处理一些异步任务，请求数据，
     - beforeMount 在挂载之前被调用，用的少，这里的this.$el是undefined
     - mount 这里就可以访问到this.$el了，可以通过DOM操作来对组件内部元素进行处理了
+    - 父组件最先开始挂载，但是是最内层的子组件最先挂载完成。洋葱模型
+    - <component :is="组件名称">，动态组件，:is内部有点类似v-if，会销毁组件，所以无法很好的保存状态，可以在这个组件外包一层keep-alive，组件会在
+      冻结和激活之间切换
+    - 可以像vue.prototype.http = http这样，在vue的实例上挂载http方法，之后就可以通过this.http调用
+      也可以使用Vue.use(object || function),接受对象时，对象中必须要有install的方法
+    - 动画，transtion，和v-if，v-show，动态组件等绑定
