@@ -50,3 +50,23 @@
     - 可以像vue.prototype.http = http这样，在vue的实例上挂载http方法，之后就可以通过this.http调用
       也可以使用Vue.use(object || function),接受对象时，对象中必须要有install的方法
     - 动画，transtion，和v-if，v-show，动态组件等绑定
+
+- 06
+  - vue router,vue.use(VueRouter),扩展Vue路由
+  - router-view 当前访问的url如果满足了其中的一个路由组件关联配置，那么该组件就会显示到对应的router-view中
+  - 路由内组件守卫，类似生命周期，beforeRouterEnter(当路由解析完成时，命中指定的组件渲染之前（组件beforeCreate之前）不能调用this，想要使用this，需要通过next来进行调用next(()=>{这里使用})，可以获取当前用户有无权限),,beforeRouterUpdate(to.from,next)，在当前路由改变，但是组件被复用时调用，beforeRouterLeave，导航离开组件时调用，可以用来代替watch('$route'),一定要确保调用next函数，才能进行接下来的过程，
+  - next(),next(false),next('/')
+  - 路由独享守卫，在routes中配置
+  - 全局守卫，注册在router中
+  - 嵌套路由
+  - 重定向
+
+- 07
+  - 导航之前获取数据，获取数据之后再通过路由进入页面，可以通过beforeRouterEnter来实现，在beforeRouterEnter里面先获取数据，再next，
+  - nProgress 进度条
+  - 路由动效，就是用transition组件包裹router-view
+  - 滚动行为，a页面滑动到页面中间，，跳转到b页面，到了b页面，滚动条也是在中间的，和a页面滚动条的位置一样，前端路由并没有重载整个浏览器，只是通过DOM局部更新了，所以有时候滚动条的状态会被保持，在new Router里面有一个scrollBehavior函数，返回值是x，y，可以将y设置为0，但是点浏览器返回时，也会使y变成0，所以在scrollBehavior(to,from,savedPosition),在使用浏览器的回退，go，back时，savedPosition会记录上一个页面的x，y值，所以可以进行判断，if，savedPosition有值，原封不动return就好了
+  - 路由元信息，通过meta定义要验证的路由
+  - 路由懒加载，在routes里面，直接component:About(组件),这样属于静态加载，在打包的时候会一次性全部打包进去，可以使用component: () => import(),按需加载，这样打包就会分成很多个包，每个的体积也很小，如果想一个路由以及其子路由打成一个包，可以写成import(/* webpackChunkName: "user"*/),以注释的形式写，但是是有用的，user是子路由的父路由的name，
+  - vuex
+  
