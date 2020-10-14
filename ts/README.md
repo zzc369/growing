@@ -1,0 +1,9 @@
+- 环境
+  - tsc 01.ts 编译01.ts
+  - tsc --outDir ./dist ./src/01.ts 就是将01.ts文件编译后放在 ./dist文件夹下
+  - tsc --outDir ./dist --target es6 ./src/01.ts --target编译成指定版本，默认es3
+  - tsc --outDir ./dist --target es6 --watch ./src/01.ts
+  - tsconfig.json
+  - --outDir --target --watch include project
+- 类型
+  - 
