@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+import findLast from "lodash/findLast";
+import {check,isLogin } from '@/utils/auth'
 // import RenderRouterView from '@/components/RenderRouterView'
 
 Vue.use(VueRouter);
@@ -37,6 +39,9 @@ const routes = [
   },
   {
     path: "/",
+    meta: {
+      authority: ["user", "admin"],
+    },
     component: () =>
       import(/* webpackChunkName: 'layout' */ "@/layouts/BasicLayout.vue"),
     children: [
@@ -78,12 +83,13 @@ const routes = [
         meta: {
           icon: "form",
           title: "表单",
+          authority: ["admin"],
         },
         children: [
           {
             path: "/form/basic-form",
             name: "basicform",
-            meta: {title: "基础表单"},
+            meta: { title: "基础表单" },
             component: () =>
               import(
                 /* webpackChunkName: 'form' */ "@/views/Forms/BasicForm.vue"
@@ -93,7 +99,7 @@ const routes = [
             path: "/form/step-form",
             name: "stepform",
             hideChildrenIsMune: true,
-            meta: {title: "分布表单"},
+            meta: { title: "分布表单" },
             component: () =>
               import(
                 /* webpackChunkName: 'form' */ "@/views/Forms/StepForm.vue"
@@ -142,8 +148,15 @@ const routes = [
     hideInMenu: true,
     component: () => import("@/404.vue"),
   },
+  {
+    path: "/403",
+    name: "403",
+    hideInMenu: true,
+    component: () => import("@/404.vue"),
+  },
 ];
-
+// 18770
+// 18217723381
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
@@ -155,7 +168,21 @@ router.beforeEach((to, from, next) => {
   if (to.path !== from.path) {
     NProgress.start();
   }
-
+  const record = findLast(to.matched, (record) => {
+    record.meta.authority;
+  });
+  if (record && check(record.meta.authority)) {
+    if(!isLogin() && to.path !== '/user/login') {
+      next({
+        path: '/user/login'
+      })
+    } else if(to.path !== '403') {
+      next({
+        path: '/403'
+      })
+    }
+    NProgress.done()
+  }
   next();
 });
 

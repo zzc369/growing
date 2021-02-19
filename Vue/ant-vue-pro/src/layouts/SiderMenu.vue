@@ -2,13 +2,20 @@
   <div style="width: 256px">
     <a-menu
       :selected-keys="selectedKeys"
-      :open-keys="openKeys"
+      :open-keys.sync="openKeys"
       mode="inline"
       :theme="theme"
-      :inline-collapsed="collapsed"
     >
       <template v-for="item in menuData">
-        <a-menu-item v-if="!item.children" :key="item.path">
+        <a-menu-item
+          v-if="!item.children"
+          :key="item.path"
+          @click="
+            () => {
+              $router.push({ path: item.path, query: $route.query });
+            }
+          "
+        >
           <a-icon v-if="item.meta.icon" type="pie-chart" />
           <span>{{ item.meta.title }}</span>
         </a-menu-item>
@@ -49,51 +56,71 @@
 //     },
 //   },
 // };
-import SubMenu from './SubMenu.vue'
+import SubMenu from "./SubMenu.vue";
 export default {
   props: {
     theme: {
       type: String,
-      default: "dark"
-    }
+      default: "dark",
+    },
   },
   components: {
-    'sub-menu': SubMenu,
+    "sub-menu": SubMenu,
   },
-  data () {
+  watch: {
+    "$route.path": function(val) {
+      this.selectedKeys = this.selectedKeysMap[val];
+      this.openKeys = this.collapsed ? [] : this.openKeysMap[val];
+    },
+  },
+  data() {
     this.selectedKeysMap = {};
     this.openKeysMap = {};
     const menuData = this.getMenuData(this.$router.options.routes);
     return {
       collapsed: false,
       menuData,
-      selectedKeys: [],
-      openKeys: [],
+      selectedKeys: this.selectedKeysMap[this.$route.path],
+      openKeys: this.collapsed ? [] : this.openKeysMap[this.$route.path],
     };
   },
   methods: {
-    toggleCollapsed () {
+    toggleCollapsed() {
       this.collapsed = !this.collapsed;
     },
-    getMenuData (routes, parentKeys = [], selectedKeys) {
+    getMenuData(routes = [], parentKeys = [], selectedKeys) {
       const menuData = [];
-      routes.forEach(item => {
+      routes.forEach((item) => {
+        this.openKeysMap[item.path] = parentKeys;
+        this.selectedKeysMap[item.path] = [selectedKeys || item.path];
         if (item.name && !item.hideInMenu) {
           const newItem = { ...item };
           delete newItem.children;
           if (item.children && !item.hideChildrenIsMune) {
-            newItem.children = this.getMenuData(item.children)
+            newItem.children = this.getMenuData(item.children, [
+              ...parentKeys,
+              item.path,
+            ]);
+          } else {
+            this.getMenuData(
+              item.children,
+              selectedKeys ? parentKeys : [...parentKeys, item.path],
+              selectedKeys || item.path
+            );
           }
-          menuData.push(newItem)
+          menuData.push(newItem);
         } else if (
-          !item.hideInMenu && !item.hideChildrenIsMune && item.children
+          !item.hideInMenu &&
+          !item.hideChildrenIsMune &&
+          item.children
         ) {
-          menuData.push(...this.getMenuData(item.children))
+          menuData.push(
+            ...this.getMenuData(item.children, [...parentKeys, item.path])
+          );
         }
       });
-      return menuData
+      return menuData;
     },
-
   },
 };
 </script>
